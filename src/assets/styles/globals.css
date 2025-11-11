@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Custom global styles */
+
+/* Announcement Section */
+
+.announcement {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
