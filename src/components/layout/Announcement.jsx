@@ -1,10 +1,12 @@
 import React from "react";
 import "../../assets/styles/globals.css";
 
-export default function Announcement() {
+function Announcement() {
   return (
-    <section className="announcement bg-black text-white py-2 px-6">
-      <h6>Announcement Here</h6>
-    </section>
+    <div className="announcement py-2 px-6 text-center">
+      <h6>Announcement Section</h6>
+    </div>
   );
 }
+
+export default Announcement;

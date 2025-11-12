@@ -1,11 +1,237 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/authContext";
+import { useProducts } from "../../context/ProductContext";
+import {
+  Menu,
+  Search,
+  ShoppingCart,
+  CircleUser,
+  X,
+  Instagram,
+  Facebook,
+  Twitter,
+} from "lucide-react";
+import SearchBar from "./Search";
 
-function Header() {
+export default function Header() {
+  const { user } = useAuth();
+  const { products } = useProducts();
+  const { cart } = useCart();
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  // Cart Count
+  const cartCount =
+    cart?.reduce((total, item) => total + item.quantity, 0) || 0;
+
+  // Example fake search function
+  const handleSearch = (query) => {
+    console.log("Searching for:", query);
+
+    // Example: Fake results (replace with actual API or context search)
+    const fakeResults = products;
+
+    const filtered = fakeResults.filter((item) =>
+      item.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filtered);
+  };
+
   return (
-    <section className="header-content">
-      <div className=""></div>
-    </section>
+    <header className="bg-white relative z-50">
+      <nav className="container mx-auto relative flex items-center justify-between py-8 px-6">
+        {/* Left side */}
+        <div className="flex-1 flex items-center gap-6">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="flex items-center text-gray-700 hover:text-red-600 transition"
+            style={{ cursor: "pointer" }}
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="flex items-center text-gray-700 hover:text-red-600 transition"
+            style={{ cursor: "pointer" }}
+          >
+            <Search className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Center logo */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <a href="/">
+            {/* <img src="/" className="w-40" alt="Cake Website Logo" /> */}
+            <h1 className="text-2xl">Logo</h1>
+          </a>
+        </div>
+
+        {/* Right side */}
+        <div className="flex-1 flex justify-end items-center gap-6 text-gray-700">
+          <Link
+            to="/cart"
+            className="flex items-center hover:text-red-600 transition relative"
+          >
+            <ShoppingCart className="w-6 h-6" />
+
+            {/* Cart Count Bubble */}
+            {cartCount > 0 && (
+              <span className="absolute top-3 left-3 bg-gray-900 text-white text-[8px] font-semibold rounded-full px-1.5">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
+          {user ? (
+            <Link
+              to="/profile"
+              className="flex items-center hover:text-red-600 transition"
+            >
+              <CircleUser className="w-6 h-6" />
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center hover:text-red-600 transition"
+            >
+              <CircleUser className="w-6 h-6" />
+            </Link>
+          )}
+        </div>
+      </nav>
+
+      {/* Sidebar overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex justify-between items-center p-6">
+          <h2 className="text-xl font-semibold text-red-600"></h2>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-gray-600 hover:text-red-600 transition"
+            style={{ cursor: "pointer " }}
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        <ul className="flex flex-col p-6 space-y-4 text-lg font-medium text-gray-700">
+          <li>
+            <Link
+              to="/newarrivals"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              Best Sellers
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/collection"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              Cakes
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              Packages
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              Branches
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/faqs"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              FAQs
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contact"
+              onClick={() => setSidebarOpen(false)}
+              className="block hover:text-red-600 transition"
+            >
+              Contact Us
+            </Link>
+          </li>
+        </ul>
+
+        {/* Social Media */}
+        <div className="absolute bottom-6 px-6 w-full flex gap-6 text-gray-600">
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-red-600 transition"
+          >
+            <Instagram size={20} />
+          </a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-red-600 transition"
+          >
+            <Facebook size={20} />
+          </a>
+          <a
+            href="https://x.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-red-600 transition"
+          >
+            <Twitter size={20} />
+          </a>
+        </div>
+      </aside>
+
+      {/* Search Bar Dropdown */}
+      <SearchBar
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        onSearch={handleSearch}
+        results={searchResults}
+      />
+    </header>
   );
 }
-
-export default Header;

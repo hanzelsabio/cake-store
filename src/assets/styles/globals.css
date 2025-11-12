@@ -2,10 +2,106 @@
 
 /* Custom global styles */
 
+main {
+  background-color: #efebce;
+}
+
+/* Pages Background */
+.cart_body,
+.search_body,
+.faqs_body,
+.contact_body {
+  background-color: #efebce;
+}
+
+.faq_answer {
+  background-color: #efebce;
+}
+
 /* Announcement Section */
 
 .announcement {
   font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
+  color: #fff;
+  background-color: #81482b;
+}
+
+.search_body {
+  background-color: #efebce;
+}
+
+/* Header Section */
+header {
+  background-color: #efebce;
+}
+
+/* Aside Section */
+aside {
+  background-color: #efebce;
+}
+
+/* Newsletter Section */
+.newsletter_content {
+  color: #fff;
+  background-color: #81482b;
+}
+
+/* Footer Section */
+
+footer {
+  font-size: 13px;
+  color: #fff;
+  background-color: #81482b;
+}
+
+footer a {
+  color: #f3be62;
+}
+
+.footer_social_icon {
+  color: #fff;
+}
+
+/* Product Content */
+
+.product_content {
+  background-color: #efebce;
+}
+
+/* Product Details */
+
+.product_details_price {
+  font-size: 15px;
+}
+
+.product_details_description {
+  font-size: 13px;
+}
+
+/*  */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Product Details - Featured Products */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

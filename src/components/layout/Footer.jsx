@@ -1,11 +1,14 @@
 import React from "react";
+import "../../assets/styles/globals.css";
 
-function Footer() {
+export default function Footer() {
   return (
-    <section className="">
-      <div className=""></div>
-    </section>
+    <footer className="text-center py-6">
+      <p>© {new Date().getFullYear()} | Cake | All rights reserved</p>
+      Designed by{" "}
+      <a href="https://hanzelsabio.vercel.app/" target="_blank">
+        Hanzel Sabio
+      </a>
+    </footer>
   );
 }
-
-export default Footer;

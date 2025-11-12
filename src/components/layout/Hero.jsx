@@ -2,8 +2,12 @@ import React from "react";
 
 function Hero() {
   return (
-    <section className="hero-content">
-      <div className=""></div>
+    <section className="flex items-center justify-center bg-white min-h-[40vh]">
+      <div className="">
+        <h2 className="about-title text-black text-xl uppercase mb-8">
+          Hero Section
+        </h2>
+      </div>
     </section>
   );
 }
